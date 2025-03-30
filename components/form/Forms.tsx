@@ -110,8 +110,7 @@ const account = new Account(client);
               control={form.control}
                  name="fullName"
               defaultValue={fullName}
-              onChange={handleInputChange} 
-
+   
             //   onChange={handleChange}
 
               render={({ field }) => (
@@ -128,7 +127,7 @@ const account = new Account(client);
               control={form.control}
                  name="email"
               defaultValue={email}
-              onChange={handleInputChange} 
+       
             //   onChange={handleChange}
 
               render={({ field }) => (
@@ -146,7 +145,7 @@ const account = new Account(client);
               control={form.control}
               name="mobileNumber"
               defaultValue={mobileNumber}
-              onChange={handleInputChange} 
+          
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Mobile Number</FormLabel>
@@ -163,7 +162,7 @@ const account = new Account(client);
               control={form.control}
               defaultValue={password}
               name="password"
-              onChange={handleInputChange} 
+         
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
@@ -180,7 +179,7 @@ const account = new Account(client);
               control={form.control}
               defaultValue={confirmPassword}
               name="confirmPassword"
-              onChange={handleInputChange} 
+      
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Confirm Password</FormLabel>
