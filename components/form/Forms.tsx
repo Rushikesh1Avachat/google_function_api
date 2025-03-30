@@ -1,6 +1,6 @@
 "use client"
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { any, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -17,8 +17,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
-import { Client, Account } from 'appwrite';
-import type { OAuthConfig, OAuthProvider } from "next-auth/providers/oauth";
+import { Client, Account, OAuthProvider } from 'appwrite';
+// import type { OAuthConfig } from "next-auth/providers/oauth";
 
 import GoogleSignUp from "../GoogleSignUp";
 import { useRouter } from "next/navigation";
@@ -53,7 +53,7 @@ confirmPassword: z.string().min(8,"Confirm Password should match").regex(/[A-Z]/
 // Infer TypeScript types from Zod schema
 type FormValues = z.infer<typeof formSchema>;
 
-const MyComponent = () => {
+const Forms= () => {
   // Initialize React Hook Form with Zod
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -91,7 +91,7 @@ const account = new Account(client);
   };
   const handleGoogleSignup = () => {
     account.createOAuth2Session(
-      "google" as unknown as OAuthProvider,
+      OAuthProvider.Google,
       "http://localhost:3000/dashboard", // Success URL
       "http://localhost:3000/login", // Failure URL
     );
@@ -214,4 +214,4 @@ const account = new Account(client);
   );
 };
 
-export default MyComponent;
+export default Forms;

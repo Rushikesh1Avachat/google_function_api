@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Client, Account } from "appwrite";
+import { Client, Account, OAuthProvider } from "appwrite";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import type { OAuthConfig, OAuthProvider } from "next-auth/providers/oauth";
+import type { OAuthConfig} from "next-auth/providers/oauth";
 
 
 const client = new Client();
@@ -18,12 +18,13 @@ export default function GoogleSignUp() {
 
   const handleGoogleSignUp = async () => {
     try {
-        account.createOAuth2Session(
-            // ✅ Type assertion to fix TypeScript error
-            `http://localhost:3000/dashboard`,
-            `http://localhost:3000/success`,
-            `http://localhost:3000/failure`
-        );
+      const account = new Account(client);
+
+      account.createOAuth2Session(
+        OAuthProvider.Google, // Replace with the actual provider name, e.g., 'google'
+        'https://localhost:3000/dashboard', // Success redirect URL
+        'https://localhost:3000/failure' // Failure redirect URL
+    );
     } catch (error) {
       console.error("Google Sign-in Error:", error);
     }

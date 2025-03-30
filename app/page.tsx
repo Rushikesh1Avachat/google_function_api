@@ -1,5 +1,5 @@
 "use client"
-import Form from "@/components/form/Form"
+import Form from "@/components/form/Forms"
 import { useState, useEffect } from 'react'
 
 export default function Home() {
