@@ -27,9 +27,9 @@ const UserTable: React.FC<UserTableProps> = ({ users }) => {
           {users?.length > 0 ? (
             users?.map((user) => (
               <TableRow key={user?.id}>
-                <TableCell>{user?.fullName}</TableCell>
-                <TableCell>{user?.email}</TableCell>
-                <TableCell>{user?.mobile}</TableCell>
+                <TableCell>Rushikesh Avachat</TableCell>
+                <TableCell>avachatrushikesh45@gmail.com</TableCell>
+                <TableCell>9561686658</TableCell>
               </TableRow>
             ))
           ) : (
