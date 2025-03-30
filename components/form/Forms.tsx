@@ -92,8 +92,8 @@ const account = new Account(client);
   const handleGoogleSignup = () => {
     account.createOAuth2Session(
       OAuthProvider.Google,
-      "https://google-function-api-zllj.vercel.app/dashboard", // Success URL
-      "https://google-function-api-zllj.vercel.app/login", // Failure URL
+      "https://google-function-api-ba6z-9ia1vx5ur.vercel.app/dashboard", // Success URL
+      "https://google-function-api-ba6z-9ia1vx5ur.vercel.app/login", // Failure URL
     );
   };
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement> ) => {
