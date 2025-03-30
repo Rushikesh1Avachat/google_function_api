@@ -19,7 +19,7 @@ export default function GoogleSignUp() {
   const handleGoogleSignUp = async () => {
     try {
         account.createOAuth2Session(
-            "google", // ✅ Type assertion to fix TypeScript error
+            // ✅ Type assertion to fix TypeScript error
             `http://localhost:3000/dashboard`,
             `http://localhost:3000/success`,
             `http://localhost:3000/failure`
