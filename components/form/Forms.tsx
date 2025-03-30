@@ -55,12 +55,12 @@ type FormValues = z.infer<typeof formSchema>;
 
 const Forms= () => {
   // Initialize React Hook Form with Zod
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const { control } = useForm({
     defaultValues: {
-      fullName: undefined,
-      mobileNumber: undefined, // or 0 if you want a default numeric value
+      fullName: "",
+      email: "",
       password: "",
+      mobileNumber: "",
       confirmPassword: "",
     },
   });
