@@ -17,7 +17,6 @@ const UpdateUser = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-
   useEffect(() => {
     if (id) {
       const fetchUser = async () => {
