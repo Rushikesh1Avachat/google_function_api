@@ -5,6 +5,7 @@ import { Client, Account, OAuthProvider } from "appwrite";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import type { OAuthConfig} from "next-auth/providers/oauth";
+import { useRouter } from "next/navigation";
 
 
 const client = new Client();
@@ -13,6 +14,7 @@ client.setEndpoint("https://cloud.appwrite.io/v1").setProject("67e6498a00349285d
 const account = new Account(client);
 
 export default function GoogleSignUp() {
+  const router = useRouter()
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -22,9 +24,11 @@ export default function GoogleSignUp() {
 
       account.createOAuth2Session(
         OAuthProvider.Google, // Replace with the actual provider name, e.g., 'google'
-        'https://localhost:3000/dashboard', // Success redirect URL
-        'https://localhost:3000/failure' // Failure redirect URL
+        'http://localhost:3000/dashboard', // Success redirect URL
+        'http://localhost:3000/create' ,
+      
     );
+    router.push("/dashboard")
     } catch (error) {
       console.error("Google Sign-in Error:", error);
     }

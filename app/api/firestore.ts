@@ -1,16 +1,12 @@
-import admin from "firebase-admin";
-import { cert } from "firebase-admin/app";
+import db from "@/config/firebase";
+import { any, string } from "zod";
 
-// Initialize Firestore if not already initialized
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: cert({
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-    }),
-  });
+
+const userId = "someUserId"; // Fetch this from authentication or request
+const userRef = db.collection("users").doc(userId);
+const userDoc = await userRef.get();
+
+if (!userDoc.exists) {
+  throw new Error("User not found");
 }
 
-const db = admin.firestore();
-export { db };

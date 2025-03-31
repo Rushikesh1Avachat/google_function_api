@@ -1,8 +1,12 @@
 // pages/api/auth.ts
-import { GoogleAuth } from "google-auth-library";
+import db from "@/config/firebase";
+import { getAuth } from "firebase/auth";
 
-export default async function handler(req:any, res:any) {
-  const auth = new GoogleAuth();
-  res.json({ success: true });
+const auth = getAuth();
+const userId = auth.currentUser?.uid; // Ensure user is logged in
+if (userId) {
+  const userRef = db.collection("users").doc(userId);
+} else {
+  console.error("User is not authenticated");
 }
 

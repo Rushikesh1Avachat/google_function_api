@@ -1,46 +1,30 @@
 import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import Dashboard from "@/app/dashboard/page";
+import { useRouter } from "next/navigation";
 
 interface User {
   id: string;
   fullName: string;
   email: string;
-  mobile: number
+  mobile: number,
+  password:string,
+  confirmPassword:string,
 }
 
 interface UserTableProps {
   users: User[];
 }
 
+
 const UserTable: React.FC<UserTableProps> = ({ users }) => {
+  const router=useRouter()
+  if (!users) {
+  router.push("/dashboard")
+  }
   return (
     <div className="rounded-lg border shadow-sm">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Full Name</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead>Mobile</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {users.length > 0 ? (
-            users.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell>Rushikesh Avachat</TableCell>
-                <TableCell>avachatrushikesh45@gmail.com</TableCell>
-                <TableCell>9561686658</TableCell>
-              </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={3} className="text-center text-gray-500">
-                No users found.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+ <Dashboard/>
     </div>
   );
 };
