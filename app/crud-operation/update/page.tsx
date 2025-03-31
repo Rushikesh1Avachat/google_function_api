@@ -1,10 +1,15 @@
 import UpdateUser from "@/components/UpdateUser";
+import { Metadata } from "next";
 
-interface PageProps {
-  searchParams: { id?: string };
-}
+export const metadata: Metadata = {
+  title: "Update User",
+};
 
-export default function UpdateUserPage({ searchParams }: PageProps) {
+export default function UpdateUserPage({
+  searchParams,
+}: {
+  searchParams: Record<string, string | undefined>;
+}) {
   const userId = searchParams?.id;
 
   return (
