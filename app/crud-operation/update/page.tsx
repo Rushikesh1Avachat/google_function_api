@@ -5,10 +5,11 @@ export const metadata: Metadata = {
   title: "Update User",
 };
 
+// ✅ Correctly using Next.js inferred types
 export default function UpdateUserPage({
   searchParams,
 }: {
-  searchParams: Record<string, string | undefined>;
+  searchParams?: { id?: string };
 }) {
   const userId = searchParams?.id;
 
