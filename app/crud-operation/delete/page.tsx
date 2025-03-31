@@ -16,16 +16,13 @@ type User = {
 
 const DeleteUser = () => {
   const [users, setUser] = useState<User | null>(null);
+  const [userId, setUserId] = useState()
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
+ 
 
   useEffect(() => {
     if (users) {
       const fetchUser = async () => {
-        const db: Firestore = getFirestore(); // Initialize Firestore
-
-        const usersCollection = collection(db, "users");
         if (users.exists()) {
           setUser({  ...(users.data() as User) });
         }
@@ -35,8 +32,8 @@ const DeleteUser = () => {
   }, [users]);
 
   const handleDelete = async () => {
-    if (id) {
-      await deleteDoc(doc(db, "users", id));
+    if (userId) {
+      await deleteDoc(doc(db, "users", userId));
       router.push("/dashboard");
     }
   };
