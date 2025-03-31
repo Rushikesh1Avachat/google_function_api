@@ -1,33 +1,35 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebaseConfig";
 
 type User = {
-  id: string;
   fullName: string;
   email: string;
   mobile: string;
 };
 
-const UpdateUser = () => {
-  const [form, setForm] = useState<User>({ id: "", fullName: "", email: "", mobile: "" });
+type UpdateUserProps = {
+  userId: string; // Accepts ID as a prop
+};
+
+const UpdateUser = ({ userId }: UpdateUserProps) => {
+  const [form, setForm] = useState<User>({ fullName: "", email: "", mobile: "" });
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
+
   useEffect(() => {
-    if (id) {
+    if (userId) {
       const fetchUser = async () => {
-        const userDoc = await getDoc(doc(db, "users", id));
+        const userDoc = await getDoc(doc(db, "users", userId));
         if (userDoc.exists()) {
-          setForm({  ...(userDoc.data() as User) });
+          setForm(userDoc.data() as User);
         }
       };
       fetchUser();
     }
-  },  [id]);
+  }, [userId]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -35,8 +37,8 @@ const UpdateUser = () => {
 
   const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (form.id) {
-      const userRef = doc(db, "users", form.id);
+    if (userId) {
+      const userRef = doc(db, "users", userId);
       await updateDoc(userRef, {
         fullName: form.fullName,
         email: form.email,
@@ -48,12 +50,7 @@ const UpdateUser = () => {
 
   return (
     <div className="p-6 max-w-md mx-auto bg-white shadow-md rounded-md">
-      <h1 className="text-2xl font-bold">Update Item</h1>
-      {id ? (
-        <p>Updating item with ID: {id}</p>
-      ) : (
-        <p className="text-red-500">No item ID provided.</p>
-      )}
+      <h1 className="text-2xl font-bold">Update User</h1>
       <form onSubmit={handleUpdate} className="space-y-4">
         <input
           type="text"
