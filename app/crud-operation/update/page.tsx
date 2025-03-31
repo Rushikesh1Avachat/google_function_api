@@ -1,6 +1,10 @@
 import UpdateUser from "@/components/UpdateUser";
 
-export default function UpdateUserPage({ searchParams }: { searchParams: Record<string, string | undefined> }) {
+interface PageProps {
+  searchParams: { id?: string };
+}
+
+export default function UpdateUserPage({ searchParams }: PageProps) {
   const userId = searchParams?.id;
 
   return (
