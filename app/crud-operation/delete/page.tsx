@@ -13,26 +13,26 @@ type User = {
 };
 
 const DeleteUser = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [users, setUser] = useState<User | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const userId = searchParams.get("id");
+  const id = searchParams.get("id");
 
   useEffect(() => {
-    if (userId) {
+    if (id) {
       const fetchUser = async () => {
-        const userDoc = await getDoc(doc(db, "users", userId));
+        const userDoc = await getDoc(doc(db, "users", id));
         if (userDoc.exists()) {
           setUser({  ...(userDoc.data() as User) });
         }
       };
       fetchUser();
     }
-  }, [userId]);
+  }, [id]);
 
   const handleDelete = async () => {
-    if (userId) {
-      await deleteDoc(doc(db, "users", userId));
+    if (id) {
+      await deleteDoc(doc(db, "users", id));
       router.push("/dashboard");
     }
   };
@@ -40,12 +40,12 @@ const DeleteUser = () => {
   return (
     <div className="p-6 max-w-md mx-auto bg-white shadow-md rounded-md">
       <h2 className="text-xl font-semibold mb-4">Delete User</h2>
-      {user ? (
+      {users ? (
         <div>
           <p className="mb-4">Are you sure you want to delete this user?</p>
-          <p><strong>Name:</strong> {user.fullName}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Mobile:</strong> {user.mobile}</p>
+          <p><strong>Name:</strong> {users.fullName}</p>
+          <p><strong>Email:</strong> {users.email}</p>
+          <p><strong>Mobile:</strong> {users.mobile}</p>
           <button onClick={handleDelete} className="bg-red-500 text-white px-4 py-2 rounded w-full mt-4">
             Confirm Delete
           </button>
