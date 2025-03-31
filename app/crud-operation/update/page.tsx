@@ -16,19 +16,19 @@ const UpdateUser = () => {
   const [form, setForm] = useState<User>({ id: "", fullName: "", email: "", mobile: "" });
   const router = useRouter();
   const searchParams = useSearchParams();
-  const userId = searchParams.get("id");
+  const id = searchParams.get("id");
 
   useEffect(() => {
-    if (userId) {
+    if (id) {
       const fetchUser = async () => {
-        const userDoc = await getDoc(doc(db, "users", userId));
+        const userDoc = await getDoc(doc(db, "users", id));
         if (userDoc.exists()) {
           setForm({  ...(userDoc.data() as User) });
         }
       };
       fetchUser();
     }
-  }, [userId]);
+  },  [id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
