@@ -48,7 +48,12 @@ const UpdateUser = () => {
 
   return (
     <div className="p-6 max-w-md mx-auto bg-white shadow-md rounded-md">
-      <h2 className="text-xl font-semibold mb-4">Update User</h2>
+      <h1 className="text-2xl font-bold">Update Item</h1>
+      {id ? (
+        <p>Updating item with ID: {id}</p>
+      ) : (
+        <p className="text-red-500">No item ID provided.</p>
+      )}
       <form onSubmit={handleUpdate} className="space-y-4">
         <input
           type="text"
