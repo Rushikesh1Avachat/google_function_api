@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { doc, getDoc, deleteDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc, collection, getFirestore, Firestore } from "firebase/firestore";
 import { db } from "@/firebase/firebaseConfig";
 
 type User = {
+  exists: any;
+  data(): User;
   id: string;
   fullName: string;
   email: string;
@@ -19,16 +21,18 @@ const DeleteUser = () => {
   const id = searchParams.get("id");
 
   useEffect(() => {
-    if (id) {
+    if (users) {
       const fetchUser = async () => {
-        const userDoc = await getDoc(doc(db, "users", id));
-        if (userDoc.exists()) {
-          setUser({  ...(userDoc.data() as User) });
+        const db: Firestore = getFirestore(); // Initialize Firestore
+
+        const usersCollection = collection(db, "users");
+        if (users.exists()) {
+          setUser({  ...(users.data() as User) });
         }
       };
       fetchUser();
     }
-  }, [id]);
+  }, [users]);
 
   const handleDelete = async () => {
     if (id) {
