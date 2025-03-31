@@ -54,3 +54,4 @@ const UpdateUser = ({ userId }: { userId: string }) => {
 };
 
 export default UpdateUser;
+

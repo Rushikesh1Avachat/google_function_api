@@ -1,6 +1,10 @@
-import UpdateUser from "@/components/UpdateUser"; // Ensure correct path
+import UpdateUser from "@/components/UpdateUser";
 
-const UpdateUserPage = ({ searchParams }: { searchParams: { id?: string } }) => {
+interface PageProps {
+  searchParams: { id?: string };
+}
+
+const UpdateUserPage = ({ searchParams }: PageProps) => {
   const userId = searchParams?.id;
 
   return (
