@@ -11,20 +11,17 @@ type User = {
   mobile: string;
 };
 
-const UpdateUser = ({ userId }: { userId: string }) => {
+export default function UpdateUser({ userId }: { userId: string }) {
   const [form, setForm] = useState<User>({ fullName: "", email: "", mobile: "" });
   const router = useRouter();
 
   useEffect(() => {
-    if (userId) {
-      const fetchUser = async () => {
-        const userDoc = await getDoc(doc(db, "users", userId));
-        if (userDoc.exists()) {
-          setForm(userDoc.data() as User);
-        }
-      };
-      fetchUser();
-    }
+    const fetchUser = async () => {
+      if (!userId) return;
+      const userDoc = await getDoc(doc(db, "users", userId));
+      if (userDoc.exists()) setForm(userDoc.data() as User);
+    };
+    fetchUser();
   }, [userId]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,11 +30,9 @@ const UpdateUser = ({ userId }: { userId: string }) => {
 
   const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (userId) {
-      const userRef = doc(db, "users", userId);
-      await updateDoc(userRef, form);
-      router.push("/dashboard");
-    }
+    if (!userId) return;
+    await updateDoc(doc(db, "users", userId), form);
+    router.push("/dashboard");
   };
 
   return (
@@ -51,7 +46,5 @@ const UpdateUser = ({ userId }: { userId: string }) => {
       <button onClick={() => router.push("/dashboard")} className="mt-4 text-blue-500">Back to Dashboard</button>
     </div>
   );
-};
-
-export default UpdateUser;
+}
 

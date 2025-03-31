@@ -1,10 +1,6 @@
 import UpdateUser from "@/components/UpdateUser";
 
-interface PageProps {
-  searchParams: { id?: string };
-}
-
-const UpdateUserPage = ({ searchParams }: PageProps) => {
+export default function UpdateUserPage({ searchParams }: { searchParams: Record<string, string | undefined> }) {
   const userId = searchParams?.id;
 
   return (
@@ -13,5 +9,4 @@ const UpdateUserPage = ({ searchParams }: PageProps) => {
       {userId ? <UpdateUser userId={userId} /> : <p className="text-red-500">No user ID provided.</p>}
     </div>
   );
-};
-export default UpdateUserPage
+}
